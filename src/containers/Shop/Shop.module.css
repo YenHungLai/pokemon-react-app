@@ -1,0 +1,11 @@
+.root {
+}
+
+.container {
+	margin: 80px auto;
+	width: 90%;
+}
+
+.pokeballCard {
+	margin: 20px auto;
+}

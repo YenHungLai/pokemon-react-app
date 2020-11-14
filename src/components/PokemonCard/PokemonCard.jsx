@@ -8,16 +8,37 @@ import Chip from '@material-ui/core/Chip';
 
 import styles from './PokemonCard.module.css';
 
+const TYPE_COLOR_MAP = {
+	normal: '#B26327',
+	fighting: '#E8E95F',
+	flying: '#E5E7EA',
+	poison: '#B92025',
+	ground: '#78431B',
+	rock: '#8B7E72',
+	bug: '#BFD42F',
+	ghost: '#8B7E72',
+	steel: '#352313',
+	fire: '#F36F21',
+	water: '#E1F5FD',
+	grass: '#54B947',
+	electric: '#F5B914',
+	psychic: '#C03595',
+	ice: '#C9EAFA',
+	dragon: '#BFD42F',
+	fairy: '#FACE85',
+	shadow: '#F5B914',
+};
+
 const PokemonCard = ({ pokemon }) => {
 	return (
-		<Card className={styles.root}>
+		<Card className={styles.root} raised>
 			<CardMedia className={styles.img} component='img' src={pokemon.sprites.front_default} title={pokemon.name} />
-			<CardContent>
+			<CardContent className={styles.cardContent}>
 				<Typography gutterBottom className={styles.name} align='center'>
 					{pokemon.name}
 				</Typography>
 				{pokemon.types.map((type) => (
-					<Chip key={type.name} className={styles.chip} label={type.name} />
+					<Chip key={type} className={styles.chip} label={type} style={{ backgroundColor: TYPE_COLOR_MAP[type] }} />
 				))}
 			</CardContent>
 		</Card>

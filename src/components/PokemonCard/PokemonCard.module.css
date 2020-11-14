@@ -15,4 +15,10 @@
 
 .chip {
 	text-transform: uppercase;
+	color: white;
+	margin: 0 1px;
+}
+
+.cardContent {
+	padding: 0;
 }

@@ -1,0 +1,41 @@
+.root {
+	width: 500px;
+	text-align: center;
+}
+
+.img {
+	margin: auto;
+}
+
+.item {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.inputRoot {
+	border: solid rgba(211, 211, 211, 0.568);
+	opacity: 0.6;
+	border-radius: 35px;
+	width: 130px;
+	margin-right: 15px;
+}
+
+.input {
+	text-align: center;
+}
+
+.button {
+	background-color: #ffb400a1;
+	color: white;
+	font-weight: bold;
+	border-radius: 30px;
+	height: 45px;
+}
+
+.actions {
+	justify-content: center;
+}
+
+.button:hover {
+	background-color: #ffb400cf;
+}
