@@ -28,6 +28,13 @@ export const LOGIN_USER = gql`
 		loginUser(username: $username, password: $password) {
 			username
 			token
+			bag {
+				pokeball
+				superball
+				ultraball
+			}
+			captured
+			createdAt
 		}
 	}
 `;

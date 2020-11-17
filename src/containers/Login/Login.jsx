@@ -29,6 +29,7 @@ const Login = () => {
 			} = await loginUser({
 				variables: { username: form.username, password: form.password },
 			});
+			console.log(user);
 			setAuth({ username: user.username, token: user.token });
 			setSnackbar({ msg: 'You have logged in', severity: 'success' });
 		} catch (error) {

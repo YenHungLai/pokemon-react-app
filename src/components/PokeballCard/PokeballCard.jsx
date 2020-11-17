@@ -27,20 +27,20 @@ const PokeballCard = ({ ball, ...props }) => {
 			<CardActions className={styles.actions}>
 				<InputBase
 					startAdornment={
-						<IconButton>
+						<IconButton onClick={props.onRemove.bind(this, ball.name.toLowerCase())}>
 							<RemoveIcon />
 						</IconButton>
 					}
 					endAdornment={
-						<IconButton>
+						<IconButton onClick={props.onAdd.bind(this, ball.name.toLowerCase())}>
 							<AddIcon />
 						</IconButton>
 					}
 					className={styles.inputRoot}
 					classes={{ input: styles.input }}
-					defaultValue={0}
+					value={props.amount ?? 0}
 				/>
-				<Button className={styles.button} variant='contained'>
+				<Button className={styles.button} variant='contained' onClick={props.onBuy}>
 					buy
 				</Button>
 			</CardActions>
