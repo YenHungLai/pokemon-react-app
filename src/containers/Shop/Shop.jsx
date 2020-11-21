@@ -32,11 +32,11 @@ const Shop = () => {
 		if (purchase[type] > 0) setPurchase({ ...purchase, [type]: purchase[type] - 1 });
 	};
 
-	const onBuy = () => {
-		if (Object.keys(purchase).length === 0) return;
-		dispatch({ type: 'BUY_BALL', payload: purchase });
-		setPurchase({});
-		setSnackbar({ msg: 'You have purchased pokemon balls', severity: 'success' });
+	const onBuy = (type) => {
+		if (purchase[type] === 0) return;
+		dispatch({ type: 'BUY_BALL', payload: { type, amount: purchase[type] } });
+		setSnackbar({ msg: `You have purchased ${purchase[type]} ${type}`, severity: 'success' });
+		setPurchase({ ...purchase, [type]: 0 });
 	};
 
 	return (
@@ -46,7 +46,7 @@ const Shop = () => {
 					{balls.map((ball) => (
 						<Badge
 							key={ball.name}
-							badgeContent={user.bag[ball.name.toLowerCase()]}
+							badgeContent={user.bag[ball.name]}
 							showZero
 							color='secondary'
 							classes={{ root: styles.badgeRoot, badge: styles.badge }}
@@ -55,19 +55,21 @@ const Shop = () => {
 						</Badge>
 					))}
 				</div>
-				<Slider {...settings}>
-					{balls.map((ball) => (
-						<PokeballCard
-							key={ball.name}
-							ball={ball}
-							styles={styles.pokeballCard}
-							onAdd={onAdd}
-							onRemove={onRemove}
-							onBuy={onBuy}
-							amount={purchase[ball.name.toLowerCase()]}
-						/>
-					))}
-				</Slider>
+				<div className={styles.sliderContainer}>
+					<Slider {...settings}>
+						{balls.map((ball) => (
+							<PokeballCard
+								key={ball.name}
+								ball={ball}
+								styles={styles.pokeballCard}
+								onAdd={onAdd}
+								onRemove={onRemove}
+								onBuy={onBuy}
+								amount={purchase[ball.name]}
+							/>
+						))}
+					</Slider>
+				</div>
 			</div>
 		</div>
 	);

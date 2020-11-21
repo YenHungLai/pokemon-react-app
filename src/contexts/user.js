@@ -16,8 +16,13 @@ function reducer(state, { type, payload }) {
 
 	switch (type) {
 		case 'BUY_BALL':
-			// Add new balls to current ball counts.
-			Object.keys(payload).forEach((ball) => (newState.bag[ball] = newState.bag[ball] + payload[ball]));
+			newState.bag[payload.type] = newState.bag[payload.type] + payload.amount;
+			return newState;
+		case 'USE_BALL':
+			newState.bag[payload] = newState.bag[payload] - 1;
+			return newState;
+		case 'CAPTURE_POKEMON':
+			newState.captured = [...newState.captured, payload];
 			return newState;
 		default:
 			return state;

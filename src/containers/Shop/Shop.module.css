@@ -2,8 +2,10 @@
 }
 
 .container {
+	position: relative;
 	margin: auto;
 	width: 90%;
+	padding-top: 50px;
 }
 
 .pokeballCard {
@@ -11,14 +13,17 @@
 }
 
 .badges {
-	margin-top: 30px;
 	display: inline-flex;
 	flex-direction: column;
+	position: absolute;
+	top: 30px;
 }
 
 .badgeRoot {
 	margin: 10px 0;
 }
 
-.badge {
+.sliderContainer {
+	width: 80%;
+	margin: auto;
 }

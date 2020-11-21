@@ -3,8 +3,10 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined';
 
 import styles from './PokemonCard.module.css';
 
@@ -29,10 +31,13 @@ const TYPE_COLOR_MAP = {
 	shadow: '#F5B914',
 };
 
-const PokemonCard = ({ pokemon }) => {
+const PokemonCard = ({ pokemon, isCaptured, onClick }) => {
 	return (
 		<Card className={styles.root} raised>
-			<CardMedia className={styles.img} component='img' src={pokemon.sprites.front_default} title={pokemon.name} />
+			{isCaptured && <CheckCircleOutlinedIcon className={styles.icon} />}
+			<CardActionArea onClick={() => onClick(pokemon)}>
+				<CardMedia className={styles.img} component='img' src={pokemon.sprites.front_default} title={pokemon.name} />
+			</CardActionArea>
 			<CardContent className={styles.cardContent}>
 				<Typography gutterBottom className={styles.name} align='center'>
 					{pokemon.name}

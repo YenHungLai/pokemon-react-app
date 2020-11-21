@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 // Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import HomeIcon from '@material-ui/icons/Home';
 
 import styles from './Navigation.module.css';
 
@@ -30,6 +31,12 @@ const Navigation = () => {
 	return (
 		<AppBar position='static'>
 			<Toolbar className={styles.toolbar}>
+				<IconButton color='inherit' component={Link} to='/'>
+					<HomeIcon />
+				</IconButton>
+				<IconButton color='inherit' component={Link} to='/shop'>
+					<ShoppingCartIcon />
+				</IconButton>
 				<Typography className={styles.title} variant='h6'>
 					{title}
 				</Typography>

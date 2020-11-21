@@ -2,6 +2,7 @@
 	margin: 10px;
 	max-width: 200px;
 	text-align: center;
+	position: relative;
 }
 
 .img {
@@ -21,4 +22,11 @@
 
 .cardContent {
 	padding: 0;
+}
+
+.icon {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	color: rgb(97, 255, 0);
 }

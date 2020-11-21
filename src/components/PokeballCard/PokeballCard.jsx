@@ -27,12 +27,12 @@ const PokeballCard = ({ ball, ...props }) => {
 			<CardActions className={styles.actions}>
 				<InputBase
 					startAdornment={
-						<IconButton onClick={props.onRemove.bind(this, ball.name.toLowerCase())}>
+						<IconButton onClick={props.onRemove.bind(this, ball.name)}>
 							<RemoveIcon />
 						</IconButton>
 					}
 					endAdornment={
-						<IconButton onClick={props.onAdd.bind(this, ball.name.toLowerCase())}>
+						<IconButton onClick={props.onAdd.bind(this, ball.name)}>
 							<AddIcon />
 						</IconButton>
 					}
@@ -40,7 +40,7 @@ const PokeballCard = ({ ball, ...props }) => {
 					classes={{ input: styles.input }}
 					value={props.amount ?? 0}
 				/>
-				<Button className={styles.button} variant='contained' onClick={props.onBuy}>
+				<Button className={styles.button} variant='contained' onClick={() => props.onBuy(ball.name)}>
 					buy
 				</Button>
 			</CardActions>

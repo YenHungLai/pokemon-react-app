@@ -1,0 +1,48 @@
+.title {
+	text-align: center;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 304px;
+}
+
+.actions {
+	justify-content: center;
+	min-height: 166px;
+}
+
+.actions img:hover {
+	animation: shake 0.5s infinite;
+}
+
+.iconButton:hover {
+	background-color: initial;
+}
+
+.amount {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 20px;
+}
+
+.tooltip {
+	font-size: 16px;
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(7deg);
+	}
+	25% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(-7deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
