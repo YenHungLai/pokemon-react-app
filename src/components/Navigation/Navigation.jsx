@@ -40,7 +40,7 @@ const Navigation = () => {
 				<Typography className={styles.title} variant='h6'>
 					{title}
 				</Typography>
-				<Button className={styles.logout} color='inherit'>
+				<Button className={styles.logout} color='inherit' component={Link} to='/login'>
 					log out
 				</Button>
 			</Toolbar>

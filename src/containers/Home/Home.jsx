@@ -13,7 +13,7 @@ import { PokemonCard, CatchDialog } from 'components';
 
 const Home = () => {
 	const { loading, error, data } = useQuery(POKEMONS);
-	const { user, dispatch } = useUserContext();
+	const { user } = useUserContext();
 	const [target, setTarget] = useState(null);
 
 	if (loading)
@@ -25,24 +25,9 @@ const Home = () => {
 
 	console.log(data.pokemons);
 
-	// Move these to CatchDialog??
-	const throwBall = (type) => {
-		if (user.bag[type] > 0) dispatch({ type: 'USE_BALL', payload: type });
-	};
-
-	const capture = (id) => {
-		dispatch({ type: 'CAPTURE_POKEMON', payload: id });
-	};
-
 	return (
 		<div>
-			<CatchDialog
-				target={target}
-				onClose={() => setTarget(null)}
-				bag={user.bag}
-				throwBall={throwBall}
-				capture={capture}
-			/>
+			<CatchDialog target={target} onClose={() => setTarget(null)} />
 			<Grid container>
 				{data.pokemons.map((pokemon) => (
 					<Grid item key={pokemon.id} xs={12} sm={4} md={3} lg={2}>

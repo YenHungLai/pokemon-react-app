@@ -17,7 +17,7 @@ import styles from './Shop.module.css';
 
 const Shop = () => {
 	const [purchase, setPurchase] = useState({});
-	const { user, dispatch } = useUserContext();
+	const { user, userDispatch } = useUserContext();
 	const { setSnackbar } = useSnackbarContext();
 	const settings = {
 		dots: true,
@@ -34,7 +34,7 @@ const Shop = () => {
 
 	const onBuy = (type) => {
 		if (purchase[type] === 0) return;
-		dispatch({ type: 'BUY_BALL', payload: { type, amount: purchase[type] } });
+		userDispatch({ type: 'BUY_BALL', payload: { type, amount: purchase[type] } });
 		setSnackbar({ msg: `You have purchased ${purchase[type]} ${type}`, severity: 'success' });
 		setPurchase({ ...purchase, [type]: 0 });
 	};

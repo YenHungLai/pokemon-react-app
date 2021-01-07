@@ -14,6 +14,19 @@ export const POKEMONS = gql`
 	}
 `;
 
+export const GET_USER = gql`
+	query GetUser($ref: String!) {
+		user(ref: $ref) {
+			bag {
+				pokeball
+				superball
+				ultraball
+			}
+			captured
+		}
+	}
+`;
+
 export const REGISTER_USER = gql`
 	mutation RegisterUser($username: String!, $password: String!, $confirmPassword: String!) {
 		registerUser(username: $username, password: $password, confirmPassword: $confirmPassword) {
@@ -35,6 +48,7 @@ export const LOGIN_USER = gql`
 			}
 			captured
 			createdAt
+			reference
 		}
 	}
 `;

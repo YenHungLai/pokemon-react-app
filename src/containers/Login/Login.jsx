@@ -16,7 +16,7 @@ import useForm from 'hooks/useForm';
 
 import styles from './Login.module.css';
 
-const Login = () => {
+const Login = ({ history, ...props }) => {
 	const [form, onInput] = useForm();
 	const [loginUser, { loading, error }] = useMutation(LOGIN_USER);
 	const { setSnackbar } = useSnackbarContext();
@@ -30,7 +30,8 @@ const Login = () => {
 				variables: { username: form.username, password: form.password },
 			});
 			console.log(user);
-			setAuth({ username: user.username, token: user.token });
+			history.push('/');
+			setAuth({ username: user.username, token: user.token, reference: user.reference });
 			setSnackbar({ msg: 'You have logged in', severity: 'success' });
 		} catch (error) {
 			setSnackbar({ msg: error.message, severity: 'error' });

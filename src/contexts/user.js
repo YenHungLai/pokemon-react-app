@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useState } from 'react';
+import { createContext, useContext, useEffect, useReducer, useState } from 'react';
+// Apollo
+import { useQuery } from '@apollo/client';
+import { GET_USER } from 'graphql.js';
+
+import { db } from 'config/firebase.js';
+import { useAuthContext } from './auth';
 
 const INIT = {
 	bag: {
@@ -9,7 +15,7 @@ const INIT = {
 	captured: [],
 };
 
-const UserContext = createContext(INIT);
+const UserContext = createContext(JSON.parse(localStorage.getItem('userContext')) ?? INIT);
 
 function reducer(state, { type, payload }) {
 	const newState = Object.assign({}, state);
@@ -22,7 +28,7 @@ function reducer(state, { type, payload }) {
 			newState.bag[payload] = newState.bag[payload] - 1;
 			return newState;
 		case 'CAPTURE_POKEMON':
-			newState.captured = [...newState.captured, payload];
+			if (!newState.captured.includes(payload)) newState.captured = [...newState.captured, payload];
 			return newState;
 		default:
 			return state;
@@ -30,11 +36,37 @@ function reducer(state, { type, payload }) {
 }
 
 export const UserProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, INIT);
+	// TODO: read from DB and cache in localStorage.
+	const [state, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('userContext')) ?? INIT);
+	const { auth } = useAuthContext();
+
+	console.log('auth', auth);
+
+	useEffect(() => {
+		(async function () {
+			try {
+				if (auth.reference) {
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('userContext', JSON.stringify(state));
+		(async function () {
+			try {
+				if (auth.reference) await db.doc(auth.reference).update(state);
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	}, [state]);
 
 	console.log('User context', state);
 
-	return <UserContext.Provider value={{ user: state, dispatch }}>{children}</UserContext.Provider>;
+	return <UserContext.Provider value={{ user: state, userDispatch: dispatch }}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => useContext(UserContext);

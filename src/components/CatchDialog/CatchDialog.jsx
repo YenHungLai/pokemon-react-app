@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 // Contexts
 import { useSnackbarContext } from 'contexts/snackbar';
+import { useUserContext } from 'contexts/user';
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -41,19 +42,21 @@ const Ball = ({ ball, amount, throwBall }) => (
 	</div>
 );
 
-const CatchDialog = ({ target, bag, ...props }) => {
+const CatchDialog = ({ target, ...props }) => {
 	const [loading, setLoading] = useState(false);
 	const { setSnackbar } = useSnackbarContext();
+	const { user, userDispatch } = useUserContext();
 
 	const throwBall = (type, efficiency) => {
-		props.throwBall(type);
+		if (user.bag[type] > 0) userDispatch({ type: 'USE_BALL', payload: type });
+
 		setLoading(true);
 		setTimeout(() => {
 			// Use efficiency to determine if captured.
 			const random = Math.random().toFixed(1);
 			if (random < efficiency / 5) {
 				setSnackbar({ msg: `You have captured ${target.name}!`, severity: 'success' });
-				props.capture(parseInt(target.id));
+				userDispatch({ type: 'CAPTURE_POKEMON', payload: parseInt(target.id) });
 				props.onClose();
 			} else {
 				setSnackbar({ msg: `Oops ${target.name} escaped!`, severity: 'info' });
@@ -74,7 +77,7 @@ const CatchDialog = ({ target, bag, ...props }) => {
 			</DialogContent>
 			<DialogActions className={styles.actions}>
 				{balls.map((ball) => (
-					<Ball key={ball.name} ball={ball} amount={bag[ball.name]} throwBall={throwBall} />
+					<Ball key={ball.name} ball={ball} amount={user.bag[ball.name]} throwBall={throwBall} />
 				))}
 			</DialogActions>
 		</Dialog>,
